@@ -4,8 +4,7 @@
   th:replace="~{fragments/layout :: layout (~{::body},'owners')}">
 
   <body>
-  
-  
+
     <h2>Owner Information</h2>
   
   
@@ -32,6 +31,9 @@
       Owner</a>
     <a th:href="@{__${owner.id}__/pets/new}" class="btn btn-primary">Add
       New Pet</a>
+
+    <!-- Display the success message here -->
+    <span th:text="${successMessage}"></span>
   
     <br />
     <br />
@@ -50,6 +52,10 @@
               th:text="${#temporals.format(pet.birthDate, 'yyyy-MM-dd')}"></dd>
             <dt>Type</dt>
             <dd th:text="${pet.type}"></dd>
+            <dt>sex</dt>
+            <dd th:text="${pet.sex}"></dd>
+            <dt>color</dt>
+            <dd th:text="${pet.color}"></dd>
           </dl>
         </td>
         <td valign="top">

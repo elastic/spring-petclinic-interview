@@ -30,6 +30,8 @@
           class="btn btn-primary" type="submit" th:text="${text}">Add
           Pet</button>
       </div>
+      <input th:replace="~{fragments/selectField :: select ('Sex', 'sex', ${genders})}" />
+      <input th:replace="~{fragments/inputField :: input ('Color', 'color', 'text')}" />
     </div>
   </form>
 
