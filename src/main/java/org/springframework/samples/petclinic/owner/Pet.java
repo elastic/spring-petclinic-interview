@@ -64,6 +64,8 @@ public class Pet extends NamedEntity {
 	@OrderBy("visit_date ASC")
 	private Set<Visit> visits = new LinkedHashSet<>();
 
+	private String email;
+
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}
@@ -100,6 +102,14 @@ public class Pet extends NamedEntity {
 		this.color = color;
 	}
 
+	public String email() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public Collection<Visit> getVisits() {
 		return this.visits;
 	}
@@ -114,7 +124,6 @@ public class Pet extends NamedEntity {
 		if (o == null || getClass() != o.getClass()) return false;
 		Pet pet = (Pet) o;
 		return Objects.equals(birthDate, pet.birthDate) && Objects.equals(type, pet.type) && Objects.equals(sex, pet.sex) && Objects.equals(color,
-			pet.color
-		) && Objects.equals(visits, pet.visits);
+			pet.color) && Objects.equals(email, pet.email) && Objects.equals(visits, pet.visits);
 	}
 }
