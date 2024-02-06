@@ -19,6 +19,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import java.util.List;
+import java.util.Set;
+
 /**
  * <code>Validator</code> for <code>Pet</code> forms.
  * <p>
@@ -51,6 +54,18 @@ public class PetValidator implements Validator {
 		if (pet.getBirthDate() == null) {
 			errors.rejectValue("birthDate", REQUIRED, REQUIRED);
 		}
+
+		if (pet.getSex() == null)
+			try {
+				pet.setSex('?');
+			} catch (Exception exception) {
+				errors.rejectValue("sex", exception.getMessage(), exception.getMessage());
+			}
+		else if (!List.of('M', 'F', '?').contains(pet.getSex().charValue()))
+			errors.rejectValue("sex", "required", "required");
+
+		// If color is not specified it is unknown
+		if (pet.getColor() == null) pet.setColor("unk");
 	}
 
 	/**

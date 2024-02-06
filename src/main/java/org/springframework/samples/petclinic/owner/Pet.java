@@ -18,6 +18,7 @@ package org.springframework.samples.petclinic.owner;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -52,10 +53,18 @@ public class Pet extends NamedEntity {
 	@JoinColumn(name = "type_id")
 	private PetType type;
 
+	@JoinColumn(name = "sex")
+	private Character sex;
+
+	@JoinColumn(name = "color")
+	private String color;
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "pet_id")
 	@OrderBy("visit_date ASC")
 	private Set<Visit> visits = new LinkedHashSet<>();
+
+	private String email;
 
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
@@ -73,6 +82,34 @@ public class Pet extends NamedEntity {
 		this.type = type;
 	}
 
+	public Character getSex() {
+		return this.sex;
+	}
+
+	public void setSex(Character sex) throws Exception {
+		if (sex == null) {
+			throw new Exception("sex not specified");
+		}
+		this.sex = sex;
+	}
+
+	public String getColor() {
+		return this.color;
+	}
+
+	public void setColor(String color) {
+		System.out.println("old color:" + this.color + "; new color: " + color);
+		this.color = color;
+	}
+
+	public String email() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public Collection<Visit> getVisits() {
 		return this.visits;
 	}
@@ -81,4 +118,12 @@ public class Pet extends NamedEntity {
 		getVisits().add(visit);
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Pet pet = (Pet) o;
+		return Objects.equals(birthDate, pet.birthDate) && Objects.equals(type, pet.type) && Objects.equals(sex, pet.sex) && Objects.equals(color,
+			pet.color) && Objects.equals(email, pet.email) && Objects.equals(visits, pet.visits);
+	}
 }

@@ -17,6 +17,7 @@ package org.springframework.samples.petclinic.owner;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -52,6 +53,12 @@ class PetController {
 	@ModelAttribute("types")
 	public Collection<PetType> populatePetTypes() {
 		return this.owners.findPetTypes();
+	}
+
+	// Valid pet genders
+	@ModelAttribute("genders")
+	public Collection<Character> populatePetGenders() {
+		return List.of('?', 'M', 'F');
 	}
 
 	@ModelAttribute("owner")
@@ -96,6 +103,7 @@ class PetController {
 	@PostMapping("/pets/new")
 	public String processCreationForm(Owner owner, @Valid Pet pet, BindingResult result, ModelMap model) {
 		if (StringUtils.hasLength(pet.getName()) && pet.isNew() && owner.getPet(pet.getName(), true) != null) {
+			System.out.println(pet.toString());
 			result.rejectValue("name", "duplicate", "already exists");
 		}
 
@@ -137,6 +145,16 @@ class PetController {
 		LocalDate currentDate = LocalDate.now();
 		if (pet.getBirthDate() != null && pet.getBirthDate().isAfter(currentDate)) {
 			result.rejectValue("birthDate", "typeMismatch.birthDate");
+		}
+
+		// validate sex
+		if (pet.getSex() != null && pet.getSex() != 'M' && pet.getSex() != 'F' && pet.getSex() != '?')
+			result.rejectValue("pet", "invalid sex");
+
+		// validate color
+		if (pet.getColor() != null && pet.getColor().length() > 15) {
+			System.out.println("color " + pet.getColor());
+			result.rejectValue("pet", "color is too long");
 		}
 
 		if (result.hasErrors()) {
