@@ -21,8 +21,6 @@ INSERT INTO types VALUES (default, 'lizard');
 INSERT INTO types VALUES (default, 'snake');
 INSERT INTO types VALUES (default, 'bird');
 INSERT INTO types VALUES (default, 'hamster');
-INSERT INTO types VALUES (default, 'ferret');
-INSERT INTO types VALUES (default, 'fish');
 
 INSERT INTO owners VALUES (default, 'George', 'Franklin', '110 W. Liberty St.', 'Madison', '6085551023');
 INSERT INTO owners VALUES (default, 'Betty', 'Davis', '638 Cardinal Ave.', 'Sun Prairie', '6085551749');
@@ -44,6 +42,8 @@ INSERT INTO pets VALUES (default, 'George', '2010-01-20', 4, 5, 'm', 'brown');
 INSERT INTO pets VALUES (default, 'Samantha', '2012-09-04', 1, 6, 'f', 'tan');
 INSERT INTO pets VALUES (default, 'Max', '2012-09-04', 1, 6, 'm', 'yellow');
 INSERT INTO pets VALUES (default, 'Lucky', '2011-08-06', 5, 7, 'm', 'black');
+
+-- Unknown pet colors
 INSERT INTO pets VALUES (default, 'Mulligan', '2007-02-24', 2, 8, '?', 'unk');
 INSERT INTO pets VALUES (default, 'Freddy', '2010-03-09', 5, 9, 'm', 'idk');
 INSERT INTO pets VALUES (default, 'Lucky', '2010-06-24', 2, 10, '?', 'unknown');
